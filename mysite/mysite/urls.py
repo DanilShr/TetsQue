@@ -20,12 +20,10 @@ from rest_framework import permissions
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Your API",
-        default_version='v1',
+        title=" API-сервис для вопросов и ответов",
+        default_version='v1.0.0',
         description="API documentation",
-        terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="contact@yourapi.local"),
-        license=openapi.License(name="BSD License"),
+        contact=openapi.Contact(email="daerrey3@gmail.com"),
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
