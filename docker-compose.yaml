@@ -1,0 +1,19 @@
+version: '2.39.2'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: "test"
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "admin"
+    ports:
+      - "5432:5432"
+    hostname: postgres
+    expose:
+      - "5432"
+
+  django:
+    build: .
+    ports:
+      - "8000:8000"
