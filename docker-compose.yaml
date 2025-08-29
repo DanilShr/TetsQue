@@ -12,8 +12,17 @@ services:
     hostname: postgres
     expose:
       - "5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U admin -d test" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   django:
     build: .
     ports:
       - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+

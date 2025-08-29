@@ -1,4 +1,3 @@
-
 from rest_framework.generics import get_object_or_404
 
 from django.http import JsonResponse
@@ -13,16 +12,17 @@ from .serializers import QuestionSerializer, AnswerSerializer
 
 from .models import Answer, Question
 
+
 class QuestionViewSet(ModelViewSet):
-    queryset  = Question.objects.all()
+    queryset = Question.objects.all()
     serializer_class = QuestionSerializer
     include_in_schema = False
+
 
 class AnswerViewSet(ModelViewSet):
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
     include_in_schema = False
-
 
 
 # Create your views here.
@@ -34,7 +34,7 @@ class QuestionListView(APIView):
         responses={200: QuestionSerializer(many=True)},
     )
     def get(self, request):
-        queryset = Question.objects.prefetch_related('answer').all()
+        queryset = Question.objects.prefetch_related("answer").all()
         serialized_data = QuestionSerializer(queryset, many=True)
         return JsonResponse(serialized_data.data, safe=False)
 
@@ -59,13 +59,13 @@ class QuestionDetailView(APIView):
         responses={200: QuestionSerializer()},
     )
     def get(self, request, pk):
-        question = get_object_or_404(Question.objects.prefetch_related('answer'), pk=pk)
+        question = get_object_or_404(Question.objects.prefetch_related("answer"), pk=pk)
         serializer = QuestionSerializer(question)
         return JsonResponse(serializer.data, status=200)
 
     @swagger_auto_schema(
         operation_description="Удалить вопрос (вместе с ответами)",
-        responses={204: 'No content'},
+        responses={204: "No content"},
     )
     def delete(self, request, pk):
         question = get_object_or_404(Question, pk=pk)
@@ -84,7 +84,7 @@ class AnswerCreateView(APIView):
     def post(self, request, pk):
         question = get_object_or_404(Question, pk=pk)
         data = request.data.copy()
-        data['question'] = pk
+        data["question"] = pk
         serialized_data = AnswerSerializer(data=data)
         if serialized_data.is_valid():
             serialized_data.save()
@@ -100,26 +100,17 @@ class AnswerDetailView(APIView):
         responses={200: AnswerSerializer()},
     )
     def get(self, request, pk):
-        answer = get_object_or_404(Answer.objects.select_related('user', 'question'), pk=pk)
+        answer = get_object_or_404(
+            Answer.objects.select_related("user", "question"), pk=pk
+        )
         serialized_data = AnswerSerializer(answer)
         return JsonResponse(serialized_data.data)
 
     @swagger_auto_schema(
         operation_description="Удалить ответ",
-        responses={204: 'No content'},
+        responses={204: "No content"},
     )
     def delete(self, request, pk):
         answer = get_object_or_404(Answer, pk=pk)
         answer.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-
-
-
-
-
-
-
-
-

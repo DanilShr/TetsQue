@@ -6,7 +6,11 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         username = ('John', 'Tolik', 'Elma')
         self.stdout.write("Create user")
-        for name in username:
-            user = User.objects.create_user(username=name, password="123456")
-            user.save()
-        self.stdout.write(f'Created users {username}')
+        users = User.objects.filter(username__in=username)
+        if users:
+            self.stdout.write("User already exists")
+        else:
+            for name in username:
+                user = User.objects.create_user(username=name, password="123456")
+                user.save()
+            self.stdout.write(f'Created users {username}')
