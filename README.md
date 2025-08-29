@@ -4,6 +4,22 @@
 - Docker
 - Docker Compose
 
+## База данных
+Проект использует PostgreSQL в качестве основной базы данных.
+
+Конфигурация
+* Хост: postgres 
+* Порт: 5432
+* Драйвер: psycopg2 (для Python)
+
+## Переменные окружения
+Для подключения к базе данных установлены следующие переменные окружения:
+
+    POSTGRES_DB=test
+    POSTGRES_USER=admin
+    POSTGRES_PASSWORD=admin
+    DATABASE_URL=postgresql://admin:admin@db:5432/test
+
 ## Запуск проекта
 1. Клонируйте репозиторий:
 ```bash
