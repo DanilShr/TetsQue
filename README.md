@@ -2,7 +2,7 @@
 
 ## Требования
 - Docker
-- Docker Compose
+- Docker-compose
 
 ## База данных
 Проект использует PostgreSQL в качестве основной базы данных.
