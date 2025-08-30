@@ -7,7 +7,9 @@ from .models import Question, Answer
 
 class QuestionTestClass(TestCase):
     def setUp(self):
-        Question.objects.create(text="Hello World!")
+        question = Question.objects.create(text="Hello World!")
+        user = User.objects.create_user(username='test', password='test')
+        Answer.objects.create(text="Hello World!", user=user, question=question)
 
     def test_add_question(self):
         response = self.client.post(
@@ -30,6 +32,14 @@ class QuestionTestClass(TestCase):
         data = response.json()
         self.assertEqual(response.status_code, 200)
         self.assertEqual(data["text"], "Hello World!")
+
+    def test_delete_question(self):
+        response = self.client.delete(reverse("question-detail", kwargs={"pk": 1}))
+        self.assertEqual(response.status_code, 204)
+        self.assertFalse(Answer.objects.filter(pk=1).exists())
+
+
+
 
 
 class AnswerTestClass(TestCase):
