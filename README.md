@@ -31,8 +31,8 @@ cd <папка-проекта>
 ```bash
 docker-compose up --build
 ```
-    Проект будет доступен по адресу:
-    http://localhost:8000
+Проект будет доступен по адресу:
+http://localhost:80
 
 ## Инициализация
 При первом запуске контейнера автоматически выполняются:
@@ -58,9 +58,9 @@ docker-compose up --build
 ## Документация API
 После запуска проекта документация доступна по адресам:
 
-* Swagger UI: http://localhost:8000/swagger/
-* ReDoc: http://localhost:8000/redoc/
-* API http://localhost:8000/api/(questions|answers) 
+* Swagger UI: http://localhost:80/swagger/
+* ReDoc: http://localhost:80/redoc/
+* API http://localhost:80/api/(questions|answers) 
 
 ## Остановка проекта
 Для остановки проекта выполните:

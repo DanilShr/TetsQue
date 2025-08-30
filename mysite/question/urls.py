@@ -16,7 +16,7 @@ router.register(r"answers", AnswerViewSet)
 
 urlpatterns = [
     path("api/", include(router.urls)),
-    path("questions/", QuestionListView.as_view(), name="question-list"),
+    path("questions/", QuestionListView.as_view(), name="question_list"),
     path("questions/<int:pk>/", QuestionDetailView.as_view(), name="question-detail"),
     path(
         "questions/<int:pk>/answers/", AnswerCreateView.as_view(), name="answer-create"
